@@ -19,6 +19,15 @@ app.get('/', (req, res) => {
   res.json({ mensagem: '🍦 Bem-vindo a API do MIlkshakito!' });
 });
 
+// Rota de teste para investigar a Vercel
+app.get('/api/debug-env', (req, res) => {
+  res.json({
+    temUrl: !!process.env.SUPABASE_URL,
+    temKey: !!process.env.SUPABASE_KEY,
+    aviso: "Se estiver false, a Vercel não está lendo as chaves!"
+  });
+});
+
 // Importando rotas
 const rotasCategorias = require('./routes/categorias');
 const rotasProdutos = require('./routes/produtos');
