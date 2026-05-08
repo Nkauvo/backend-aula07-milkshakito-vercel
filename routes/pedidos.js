@@ -1,6 +1,6 @@
-const express = requeire('express');
+const express = require('express');
 const router = express.Router();
-const supabase = require('..data/supabase');
+const supabase = require('../data/supabase');
 
 router.get('/', async (req, res, next) =>{
     try{
