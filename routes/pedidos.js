@@ -2,8 +2,18 @@ const express = require('express');
 const router = express.Router();
 const supabase = require('../data/supabase');
 
+function validarSupabase() {
+    if (!supabase) {
+        const error = new Error('Configuração do Supabase ausente. Defina SUPABASE_URL e SUPABASE_KEY na Vercel.');
+        error.status = 500;
+        throw error;
+    }
+}
+
+
 router.get('/', async (req, res, next) =>{
     try{
+        validarSupabase();
         const {data, error} = await supabase
         .from('pedidos')
         .select('*')
@@ -18,6 +28,7 @@ router.get('/', async (req, res, next) =>{
 //rota para receber e criar um novo pedido (POST)
 router.post('/', async (req, res, next) =>{
     try{
+        validarSupabase();
         const{data, error} = await supabase
         .from('pedidos')
         .insert([req.body])

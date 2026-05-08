@@ -28,7 +28,7 @@ const rotasPedidos = require('./routes/pedidos');
 // Utilizando rotas
 app.use('/api/categorias', rotasCategorias);
 app.use('/api/produtos', rotasProdutos);
-app.use('api/pedidos', rotasPedidos);
+app.use('/api/pedidos', rotasPedidos);
 
 // Tratamento de Rotas não encontradas (Erro 404)
 app.use((req, res, next) => {
