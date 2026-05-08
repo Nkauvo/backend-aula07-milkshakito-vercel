@@ -7,6 +7,7 @@ const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
 
+
 // Middlewares Globais
 app.use(cors());
 app.use(express.json());
@@ -22,10 +23,12 @@ app.get('/', (req, res) => {
 // Importando rotas
 const rotasCategorias = require('./routes/categorias');
 const rotasProdutos = require('./routes/produtos');
+const rotasPedidos = require('./routes/pedidos');
 
 // Utilizando rotas
 app.use('/api/categorias', rotasCategorias);
 app.use('/api/produtos', rotasProdutos);
+app.use('api/pedidos', rotasPedidos);
 
 // Tratamento de Rotas não encontradas (Erro 404)
 app.use((req, res, next) => {
