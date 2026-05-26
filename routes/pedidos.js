@@ -44,4 +44,48 @@ router.post('/', async (req, res, next) =>{
     }
 });
 
+// Rota para atualizar o estado de um pedido (PUT)
+router.put('/:id', async (req, res, next) => {
+    try {
+        validarSupabase();
+        const { id } = req.params;
+        
+        const { data, error } = await supabase
+            .from('pedidos')
+            .update(req.body) // Vai atualizar o status enviado pelo frontend
+            .eq('id', id)
+            .select();
+
+        if (error) throw error;
+
+        if (data && data.length > 0) {
+            res.json({
+                sucesso: true,
+                mensagem: 'Pedido atualizado com sucesso!',
+                pedido: data[0]
+            });
+        } else {
+            res.status(404).json({ mensagem: 'Pedido não encontrado' });
+        }
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.delete('/:id', async (req, res, next) => {
+    try{
+        const {id} = req.params;
+        const {error} = await supabase
+        .from('produtos')
+        .delete()
+        .eq('id', id);
+
+        if(error) throw error;
+        res.json({mensagem: 'produto deletado'});
+    }catch (err){
+        next(err);
+    }
+});
+
+
 module.exports = router;
