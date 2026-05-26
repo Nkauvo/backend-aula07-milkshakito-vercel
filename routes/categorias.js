@@ -53,4 +53,17 @@ router.put('/:id', async (req, res, next) => {
 }
 });
 
+router.delete('/:id', async (req, res, next) => {
+    try{
+        const {id} = req.params;
+        const {error} = await supabase
+        .from('categorias')
+        .delete()
+        .eq('id', id);
+    if (error) throw error;
+    res.json({mensagem: 'Categoria deleteda com sucesso'});
+    }catch (err){
+        next(err);
+    }
+});
 module.exports = router;
