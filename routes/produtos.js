@@ -9,13 +9,13 @@ router.get('/erro-teste', (req, res) => {
 
 router.get('/', async (req, res, next) => {
     try{
-        const {categoriaId} = req.query;
+        const {categoria_id} = req.query;
         let consulta = supabase.from('produtos').select('*');
 
-        if (categoriaId){
-            consulta = consulta.eq('categoriaId', categoriaId);
+        if (categoria_id){
+            consulta = consulta.eq('categoria_id', categoria_id);
         }
-        const {data, error} = await consulta.order('id', {ascendir: true});
+        const {data, error} = await consulta.order('id', {ascending: true});
 
         if (error) throw error;
         res.json(data);
@@ -24,7 +24,7 @@ router.get('/', async (req, res, next) => {
     }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req, res, next) => {
     try{
         const {id} = req.params;
         const{data,error} = await supabase

@@ -22,7 +22,7 @@ router.post('/', async (req, res, next) => {
     try{
         const { data, error } = await supabase
         .from('categorias')
-        .insert([{nome: req.body}])
+        .insert([req.body])
         .select();
 
         if (error) throw error;
